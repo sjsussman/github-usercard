@@ -103,6 +103,7 @@ const cardMaker = (data) => {
   const followers = document.createElement('p')
   const following = document.createElement('p')
   const bio = document.createElement('p')
+  const graph = document.createElement('img') // stretch
 
   //create classes
   mainContainer.classList.add('card')
@@ -115,6 +116,7 @@ const cardMaker = (data) => {
   //append img and second div to div container
   mainContainer.appendChild(img)
   mainContainer.appendChild(divHolder)
+  mainContainer.appendChild(graph)
 
   //append the rest of the elements the divHolder
   divHolder.appendChild(h3)
@@ -131,14 +133,18 @@ const cardMaker = (data) => {
   h3.textContent = `${data.name}`;
   username.textContent = `Username: ${data.login}`;
   location.textContent = `Location: ${data.location}`;
+  // profile.textContent = `Profile:`
   a.href = `${data.html_url}`;
   a.textContent = `${data.html_url}`;
   followers.textContent = `Followers: ${data.followers}`;
   following.textContent = `Following: ${data.following}`;
   bio.textContent = `Bio: ${data.bio}`;
+  graph.src = `http://ghchart.rshah.org/${data.login}`; // stretch
 
   console.log(mainContainer)
   return mainContainer
 }
 
 cardMaker();
+
+
