@@ -8,7 +8,6 @@ axios.get('https://api.github.com/users/sjsussman')
 .then(response => {
   console.log(response);
   const myInfo = response.data;
-  cardMaker(response.data);
   const mainCard = document.querySelector('.cards');
   const cardInfo = cardMaker(myInfo);
   console.log(myInfo);
@@ -42,7 +41,7 @@ axios.get('https://api.github.com/users/sjsussman')
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['c0d3-vp', 'zoelud', 'agyin3 ', 'james-coulter', 'jamiehardesty'];
+const followersArray = ['c0d3-vp', 'zoelud', 'agyin3 ', 'bigknell', 'jamiehardesty'];
 
 followersArray.forEach((follower, i) => {
     axios.get(`https://api.github.com/users/${followersArray[i]}`)
@@ -124,7 +123,7 @@ const cardMaker = (data) => {
   divHolder.appendChild(username)
   divHolder.appendChild(location)
   divHolder.appendChild(profile)
-    profile.appendChild(a) //append anchor element to profile
+    // profile.appendChild(a) //append anchor element to profile
   divHolder.appendChild(followers)
   divHolder.appendChild(following)
   divHolder.appendChild(bio)
@@ -134,9 +133,9 @@ const cardMaker = (data) => {
   h3.textContent = `${data.name}`;
   username.textContent = `Username: ${data.login}`;
   location.textContent = `Location: ${data.location}`;
-  // profile.textContent = `Profile:`
-  a.href = `${data.html_url}`;
-  a.textContent = `${data.html_url}`;
+  a.href = data.html_url;
+  a.textContent = data.html_url;
+  profile.innerHTML = `Profile:` + a;
   followers.textContent = `Followers: ${data.followers}`;
   following.textContent = `Following: ${data.following}`;
   bio.textContent = `Bio: ${data.bio}`;
@@ -146,6 +145,5 @@ const cardMaker = (data) => {
   return mainContainer
 }
 
-cardMaker();
 
 
