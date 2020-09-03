@@ -133,9 +133,10 @@ const cardMaker = (data) => {
   h3.textContent = `${data.name}`;
   username.textContent = `Username: ${data.login}`;
   location.textContent = `Location: ${data.location}`;
-  a.href = data.html_url;
-  a.textContent = data.html_url;
-  profile.innerHTML = `Profile:` + a;
+  profile.textContent = 'Profile: '
+  a.textContent = data.html_url
+  a.href = data.html_url
+  profile.appendChild(a)
   followers.textContent = `Followers: ${data.followers}`;
   following.textContent = `Following: ${data.following}`;
   bio.textContent = `Bio: ${data.bio}`;
