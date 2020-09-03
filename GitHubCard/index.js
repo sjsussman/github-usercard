@@ -88,7 +88,6 @@ followersArray.forEach((follower, i) => {
     luishrd
     bigknell
 */
-const mainCard = document.querySelector('.cards');
 
 const cardMaker = (data) => {
   //create elements
@@ -116,7 +115,9 @@ const cardMaker = (data) => {
   //append img and second div to div container
   mainContainer.appendChild(img)
   mainContainer.appendChild(divHolder)
-  mainContainer.appendChild(graph)
+  mainContainer.appendChild(graph) // stretch
+  graph.style.height = '150px'
+  graph.style.width = '300px'
 
   //append the rest of the elements the divHolder
   divHolder.appendChild(h3)
