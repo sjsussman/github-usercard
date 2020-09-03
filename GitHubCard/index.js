@@ -1,8 +1,22 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/sjsussman')
+.then(response => {
+  console.log(response);
+  const myInfo = response.data;
+  cardMaker(response.data);
+  const mainCard = document.querySelector('.cards');
+  const cardInfo = cardMaker(myInfo);
+  console.log(myInfo);
+  mainCard.appendChild(cardInfo)
+})
+.catch(error => {
+  console.log(error);
+});
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +42,23 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['c0d3-vp', 'zoelud', 'agyin3 ', 'james-coulter', 'jamiehardesty'];
+
+followersArray.forEach((follower, i) => {
+    axios.get(`https://api.github.com/users/${followersArray[i]}`)
+        .then(response => {
+            console.log(response);
+            const myInfo = response.data;
+            const mainCard = document.querySelector('.cards');
+            const cardInfo = cardMaker(myInfo);
+            console.log(cardInfo);
+            mainCard.appendChild(cardInfo)
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    console.log(followersArray);
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +88,57 @@ const followersArray = [];
     luishrd
     bigknell
 */
+const mainCard = document.querySelector('.cards');
+
+const cardMaker = (data) => {
+  //create elements
+  const mainContainer = document.createElement('div')
+  const img = document.createElement('img')
+  const divHolder = document.createElement('div')
+  const h3 = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const a = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  //create classes
+  mainContainer.classList.add('card')
+
+  divHolder.classList.add('card-info')
+  h3.classList.add('name')
+  username.classList.add('username')
+
+
+  //append img and second div to div container
+  mainContainer.appendChild(img)
+  mainContainer.appendChild(divHolder)
+
+  //append the rest of the elements the divHolder
+  divHolder.appendChild(h3)
+  divHolder.appendChild(username)
+  divHolder.appendChild(location)
+  divHolder.appendChild(profile)
+    profile.appendChild(a) //append anchor element to profile
+  divHolder.appendChild(followers)
+  divHolder.appendChild(following)
+  divHolder.appendChild(bio)
+
+
+  img.src = `${data.avatar_url}`;
+  h3.textContent = `${data.name}`;
+  username.textContent = `Username: ${data.login}`;
+  location.textContent = `Location: ${data.location}`;
+  a.href = `${data.html_url}`;
+  a.textContent = `${data.html_url}`;
+  followers.textContent = `Followers: ${data.followers}`;
+  following.textContent = `Following: ${data.following}`;
+  bio.textContent = `Bio: ${data.bio}`;
+
+  console.log(mainContainer)
+  return mainContainer
+}
+
+cardMaker();
